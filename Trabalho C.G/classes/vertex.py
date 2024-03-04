@@ -1,7 +1,10 @@
-class vertex:
-    def __init__(self, id, x, y, celula=None):
+class Vertex:
+    def __init__(self, id, x, y, z, face):
         self.id = id
         self.x = x
         self.y = y
-        self.celula = celula
+        self.z = z
+        self.face = face
         self.proximo = None
+
+#No do vertex

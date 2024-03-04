@@ -1,68 +1,86 @@
-class estrutura:
+from classes.vertex import Vertex
+from classes.face import Face
+
+class Estrutura:
     def __init__(self):
         self.primeiroVertex = None
         self.ultimoVertex = None
         self.sizeVertex = 0
-        self.vertexAtual = None
-        #-------------------
-        self.primeiroCelula = None
-        self.ultimoCelula = None
-        self.sizeCelula = 0
-        self.celulaAtual = None
+        self.primeiroFace = None
+        self.ultimoFace = None
+        self.sizeFace = 0
 
     def addVertex(self, noVertex):
-        if noVertex == None:
+        if noVertex is None:
             return
         elif self.sizeVertex == 0:
             self.primeiroVertex = noVertex
             self.ultimoVertex = noVertex
             self.sizeVertex += 1
-        elif self.sizeVertex > 0:
+        else:
             self.ultimoVertex.proximo = noVertex
             self.ultimoVertex = noVertex
             self.sizeVertex += 1
 
-    def addCelula(self, noCelula):
-        if noCelula == None:
+    def addFace(self, noFace):
+        if noFace is None:
             return
-        elif self.sizeCelula == 0:
-            self.primeiroCelula = noCelula
-            self.ultimoCelula = noCelula
-            self.sizeCelula += 1
-        elif self.sizeCelula > 0:
-            self.ultimoCelula.proximo = noCelula
-            self.ultimoCelula = noCelula
-            self.sizeCelula += 1
+        elif self.sizeFace == 0:
+            self.primeiroFace = noFace
+            self.ultimoFace = noFace
+            self.sizeFace += 1
+        else:
+            self.ultimoFace.proximo = noFace
+            self.ultimoFace = noFace
+            self.sizeFace += 1
 
-    #remove
-    
-    
-    def vHasNext(self):
-        if self.vertexAtual is None:
-            return self.primeiroVertex is not None
-        else:
-            return self.vertexAtual.proximo is not None
+    def defineVizinhos(self):
+        faces = self.listOfFaces()
+        for f1 in faces:
+            v0 = f1.v0
+            v1 = f1.v1
+            v2 = f1.v2
+            for f2 in faces:
+                if f2 != f1:
+                    if (f2.v0 == v0 or f2.v1 == v0 or f2.v2 == v0) and (f2.v0 == v1 or f2.v1 == v1 or f2.v2 == v1):
+                        f1.vizinho1 = f2.id
+                    elif (f2.v0 == v1 or f2.v1 == v1 or f2.v2 == v1) and (f2.v0 == v2 or f2.v1 == v2 or f2.v2 == v2):
+                        f1.vizinho2 = f2.id
+                    elif (f2.v0 == v2 or f2.v1 == v2 or f2.v2 == v2) and (f2.v0 == v0 or f2.v1 == v0 or f2.v2 == v0):
+                        f1.vizinho3 = f2.id
 
-    def nextVertex(self):
-        if self.vertexAtual is None:
-            self.vertexAtual = self.primeiroVertex
-        else:
-            self.vertexAtual = self.vertexAtual.proximo
-        return "id:" + str(self.vertexAtual.id) + " x:" + str(self.vertexAtual.x) + " y:" + str(self.vertexAtual.y) + " celula:" + str(self.vertexAtual.celula) if self.vertexAtual else None
-    
-    def cHasNext(self):
-        if self.celulaAtual is None:
-            return self.primeiroCelula is not None
-        else:
-            return self.celulaAtual.proximo is not None
-        
-    def nextCelula(self):
-        if self.celulaAtual is None:
-            self.celulaAtual = self.primeiroCelula
-        else:
-            self.celulaAtual = self.celulaAtual.proximo
-        return "id:" + str(self.celulaAtual.id) + " v0:" + str(self.celulaAtual.v0.id) + " v1:" + str(self.celulaAtual.v1.id) + " v2:" + str(self.celulaAtual.v2.id) + " Vizinhos:(" + str(self.celulaAtual.vizinhos[0]) + ", " + str(self.celulaAtual.vizinhos[1]) + ", " + str(self.celulaAtual.vizinhos[2]) + ")" if self.celulaAtual else None
-    
-    def resetIterator(self):
-        self.vertexAtual = None
-        self.celulaAtual = None
+    def exibirVertex(self):
+        if self.sizeVertex == 0:
+            return
+        aux = self.primeiroVertex
+        while aux is not None:
+            print("id:" + str(aux.id) + " x:" + str(aux.x) + " y:" + str(aux.y) + " z:" + str(aux.z) + " Face:" + str(aux.face))
+            aux = aux.proximo
+
+    def exibirFace(self):
+        if self.sizeVertex == 0:
+            return
+        aux = self.primeiroFace
+        while aux is not None:
+            print("id:" + str(aux.id) + " v0:" + str(aux.v0.id) + " v1:" + str(aux.v1.id) + " v2:" + str(aux.v2.id) + " Vizinhos:(" + str(aux.vizinho1) + ", " + str(aux.vizinho2) + ", " + str(aux.vizinho3) + ")")
+            aux = aux.proximo
+
+    def listOfVertex(self):
+        if self.sizeVertex == 0:
+            return []
+        aux = self.primeiroVertex
+        listVertex = []
+        while aux is not None:
+            listVertex.append(aux)
+            aux = aux.proximo
+        return listVertex
+
+    def listOfFaces(self):
+        if self.sizeFace == 0:
+            return []
+        aux = self.primeiroFace
+        listFace = []
+        while aux is not None:
+            listFace.append(aux)
+            aux = aux.proximo
+        return listFace
