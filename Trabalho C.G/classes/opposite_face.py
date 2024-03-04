@@ -1,6 +1,3 @@
-from classes.vertex import Vertex
-from classes.face import Face
-
 class Estrutura:
     def __init__(self):
         self.primeiroVertex = None
@@ -53,7 +50,7 @@ class Estrutura:
         if self.sizeVertex == 0:
             return
         aux = self.primeiroVertex
-        while aux is not None:
+        while aux != None:
             print("id:" + str(aux.id) + " x:" + str(aux.x) + " y:" + str(aux.y) + " z:" + str(aux.z) + " Face:" + str(aux.face))
             aux = aux.proximo
 
@@ -61,7 +58,7 @@ class Estrutura:
         if self.sizeVertex == 0:
             return
         aux = self.primeiroFace
-        while aux is not None:
+        while aux != None:
             print("id:" + str(aux.id) + " v0:" + str(aux.v0.id) + " v1:" + str(aux.v1.id) + " v2:" + str(aux.v2.id) + " Vizinhos:(" + str(aux.vizinho1) + ", " + str(aux.vizinho2) + ", " + str(aux.vizinho3) + ")")
             aux = aux.proximo
 
@@ -70,7 +67,7 @@ class Estrutura:
             return []
         aux = self.primeiroVertex
         listVertex = []
-        while aux is not None:
+        while aux != None:
             listVertex.append(aux)
             aux = aux.proximo
         return listVertex
@@ -80,7 +77,7 @@ class Estrutura:
             return []
         aux = self.primeiroFace
         listFace = []
-        while aux is not None:
+        while aux != None:
             listFace.append(aux)
             aux = aux.proximo
         return listFace

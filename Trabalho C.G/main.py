@@ -4,9 +4,9 @@ from classes.sru import SRU
 from classes.opposite_face import Estrutura
 
 def main():
-    x = 25
+    x = 50
     y = 1
-    z = 25
+    z = 50
 
     of = Estrutura()
     v0 = Vertex(0, int(x/2), int(y-1), int(z/2), 0)
@@ -24,40 +24,39 @@ def main():
     v6 = Vertex(6, int(x/2), int(y - 1), int(z * 0.16), 4)
     of.addVertex(v6)
 
-    f0 = Face(0, v0, v1, v2, -1, -1, -1)
+    f0 = Face(0, v0, v1, v2)
     of.addFace(f0)
-    f1 = Face(1, v0, v2, v3, -1, -1, -1)
+    f1 = Face(1, v0, v2, v3)
     of.addFace(f1)
-    f2 = Face(2, v0, v3, v4, -1, -1, -1)
+    f2 = Face(2, v0, v3, v4)
     of.addFace(f2)
-    f3 = Face(3, v0, v4, v5, -1, -1, -1)
+    f3 = Face(3, v0, v4, v5)
     of.addFace(f3)
-    f4 = Face(4, v0, v5, v6, -1, -1, -1)
+    f4 = Face(4, v0, v5, v6)
     of.addFace(f4)
-    f5 = Face(5, v0, v6, v1, -1, -1, -1)
+    f5 = Face(5, v0, v6, v1)
     of.addFace(f5)
 
     # Define os vizinhos
     of.defineVizinhos()
 
     espacoSRU = SRU(x, y, z, of)
-    matriz = espacoSRU.criarMatriz()
-    espacoSRU.adicionarVertexs(matriz)
-    espacoSRU.adicionarFaces(matriz)
+    espacoSRU.adicionarVertexs()
+    espacoSRU.adicionarFaces()
 
     #criar faces
-    #espacoSRU.desenhar(matriz, f0)
-    #espacoSRU.desenhar(matriz, f1)
-    #espacoSRU.desenhar(matriz, f2)
-    #espacoSRU.desenhar(matriz, f3)
-    #espacoSRU.desenhar(matriz, f4)
-    #espacoSRU.desenhar(matriz, f5)
+    #espacoSRU.desenhar(f0)
+    #espacoSRU.desenhar(f1)
+    #espacoSRU.desenhar(f2)
+    #espacoSRU.desenhar(f3)
+    #espacoSRU.desenhar(f4)
+    #espacoSRU.desenhar(f5)
 
     # Exibir
     for i in range(x):
         for j in range(y):
             for k in range(z):
-                print(matriz[i, j, k], end=" ")
+                print(espacoSRU.matriz[i, j, k], end=" ")
         print()
 
     # Dados da estrutura
@@ -67,5 +66,5 @@ def main():
     print("Faces:")
     of.exibirFace()
 
-if __name__ == "__main__":
+if __name__ == "__main__": #procura e executa o metodo main ao executar
     main()

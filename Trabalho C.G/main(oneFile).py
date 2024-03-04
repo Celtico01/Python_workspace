@@ -207,7 +207,7 @@ def main():
     espacoSRU.adicionarVertexs(matriz)
     espacoSRU.adicionarFaces(matriz)
 
-    #criar faces
+    #criar ligações
     #espacoSRU.desenhar(matriz, f0)
     #espacoSRU.desenhar(matriz, f1)
     #espacoSRU.desenhar(matriz, f2)
