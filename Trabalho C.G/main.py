@@ -4,24 +4,24 @@ from classes.sru import SRU
 from classes.opposite_face import Estrutura
 
 def main():
-    x = 50
+    x = 49
     y = 1
-    z = 50
+    z = 49
 
     of = Estrutura()
-    v0 = Vertex(0, int(x/2), int(y-1), int(z/2), 0)
+    v0 = Vertex(0, int(x/2), int(y-1), int(z/2))
     of.addVertex(v0) 
-    v1 = Vertex(1, int(x * 0.64), int(y - 1), int(z * 0.32), 0)
+    v1 = Vertex(1, int(x * 0.64), int(y - 1), int(z * 0.32))
     of.addVertex(v1) 
-    v2 = Vertex(2, int(x * 0.64), int(y - 1), int(z * 0.64), 0)
+    v2 = Vertex(2, int(x * 0.64), int(y - 1), int(z * 0.64))
     of.addVertex(v2) 
-    v3 = Vertex(3, int(x/2), int(y - 1), int(z * 0.8), 1)
+    v3 = Vertex(3, int(x/2), int(y - 1), int(z * 0.8))
     of.addVertex(v3) 
-    v4 = Vertex(4, int(x * 0.32), int(y - 1), int(z * 0.64), 2) 
+    v4 = Vertex(4, int(x * 0.32), int(y - 1), int(z * 0.64)) 
     of.addVertex(v4) 
-    v5 = Vertex(5, int(x * 0.32), int(y - 1), int(z * 0.32), 3)
+    v5 = Vertex(5, int(x * 0.32), int(y - 1), int(z * 0.32))
     of.addVertex(v5) 
-    v6 = Vertex(6, int(x/2), int(y - 1), int(z * 0.16), 4)
+    v6 = Vertex(6, int(x/2), int(y - 1), int(z * 0.16))
     of.addVertex(v6)
 
     f0 = Face(0, v0, v1, v2)
@@ -45,12 +45,7 @@ def main():
     espacoSRU.adicionarFaces()
 
     #criar faces
-    #espacoSRU.desenhar(f0)
-    #espacoSRU.desenhar(f1)
-    #espacoSRU.desenhar(f2)
-    #espacoSRU.desenhar(f3)
-    #espacoSRU.desenhar(f4)
-    #espacoSRU.desenhar(f5)
+    espacoSRU.desenharObjeto()
 
     # Exibir
     for i in range(x):

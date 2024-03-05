@@ -20,14 +20,16 @@ class SRU:
             for v in listOfVertex:
                 self.matriz[v.x, v.y, v.z] = '*'
     
-    def desenhar(self, face):
-        # obtém as coordenadas x e z de cada vértice da face
-        vertices = [(face.v0.x, face.v0.z), (face.v1.x, face.v1.z), (face.v2.x, face.v2.z)]
-        #vira uma matriz 2D [vertices][x ou z]
+    def desenharObjeto(self):
+        for face in self.estrutura.listOfFaces():
+            # obtém as coordenadas x e z de cada vértice da face
+            vertices = [(face.v0.x, face.v0.z), (face.v1.x, face.v1.z), (face.v2.x, face.v2.z)]
+            #vira uma matriz 2D [vertices][x ou z]
 
-        for v1, v2 in [(vertices[i], vertices[j]) for i in range(len(vertices)) for j in range(i+1, len(vertices))]:
-            # desenha uma linha entre cada par de vértices na matriz
-            self.criar_linhas(v1[0], v1[1], v2[0], v2[1])
+            for v1, v2 in [(vertices[i], vertices[j]) for i in range(len(vertices)) for j in range(i+1, len(vertices))]:
+                # desenha uma linha entre cada par de vértices na matriz
+                self.criar_linhas(v1[0], v1[1], v2[0], v2[1])
+        
 
     def criar_linhas(self, x0, z0, x1, z1): #adaptação do algoritmo de bresenham
         dx = abs(x1 - x0)  # calcula a distância na direção x entre os pontos

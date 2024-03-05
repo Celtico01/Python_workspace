@@ -31,6 +31,11 @@ class Estrutura:
             self.ultimoFace = noFace
             self.sizeFace += 1
 
+        #atualiza as faces incidentes dos vertexs
+        noFace.v0.face = noFace.id
+        noFace.v1.face = noFace.id
+        noFace.v2.face = noFace.id
+
     def defineVizinhos(self):
         faces = self.listOfFaces()
         for f1 in faces:
