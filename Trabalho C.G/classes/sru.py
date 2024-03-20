@@ -1,4 +1,5 @@
 import numpy as np
+from colorama import Fore, Style
 
 class SRU:
     def __init__(self, x, y, z, estrutura):
@@ -10,25 +11,30 @@ class SRU:
 
     def criarMatriz(self):
         # cria uma matriz tridimensional de caracteres preenchida com um caractere padrão '-'
-        m = np.empty((self.x, self.y, self.z), dtype=str)
-        m[:] = '-'  # preenche a matriz com o caractere padrão
+        m = np.empty((self.x, self.y, self.z), dtype=object)
+        m[:] = item_matriz(Fore.WHITE, '-')
+        for i in range(self.x):
+            m[i, 0, self.z // 2] = item_matriz(Fore.RED, '—')
+            m[self.x // 2, 0, i] = item_matriz(Fore.RED, '|')
+        m[self.x // 2, 0, self.z // 2] = item_matriz(Fore.RED, '+')
         return m  # retorna a matriz criada
     
     def adicionarVertexs(self):
-        listOfVertex = self.estrutura.listOfVertex()
-        if len(listOfVertex) != 0:
+        if len(self.estrutura.listOfVertex()) != 0:
+            listOfVertex = self.estrutura.listOfVertex()
             for v in listOfVertex:
-                self.matriz[v.x, v.y, v.z] = '*'
+                self.matriz[v.x, v.y, v.z] = item_matriz(Fore.GREEN, '*')
     
     def desenharObjeto(self):
-        for face in self.estrutura.listOfFaces():
-            # obtém as coordenadas x e z de cada vértice da face
-            vertices = [(face.v0.x, face.v0.z), (face.v1.x, face.v1.z), (face.v2.x, face.v2.z)]
-            #vira uma matriz 2D [vertices][x ou z]
+        if len(self.estrutura.listOfFaces()) != 0:
+            for face in self.estrutura.listOfFaces():
+                # obtém as coordenadas x e z de cada vértice da face
+                vertices = [(face.v0.x, face.v0.z), (face.v1.x, face.v1.z), (face.v2.x, face.v2.z)]
+                #vira uma matriz 2D [vertices][x ou z]
 
-            for v1, v2 in [(vertices[i], vertices[j]) for i in range(len(vertices)) for j in range(i+1, len(vertices))]:
-                # desenha uma linha entre cada par de vértices na matriz
-                self.criar_linhas(v1[0], v1[1], v2[0], v2[1])
+                for v1, v2 in [(vertices[i], vertices[j]) for i in range(len(vertices)) for j in range(i+1, len(vertices))]:
+                    # desenha uma linha entre cada par de vértices na matriz
+                    self.criar_linhas(v1[0], v1[1], v2[0], v2[1])
         
 
     def criar_linhas(self, x0, z0, x1, z1): #adaptação do algoritmo de bresenham
@@ -39,7 +45,7 @@ class SRU:
         erro = dx - dz 
         
         while x0 != x1 or z0 != z1:
-            self.matriz[x0, 0, z0] = '*'  
+            self.matriz[x0, 0, z0] = item_matriz(Fore.GREEN, '*') 
             erro2 = 2 * erro  # calcula o dobro do erro
             if erro2 > -dz:  # vvrifica se o erro é maior que a distância na direção z
                 erro -= dz 
@@ -49,14 +55,19 @@ class SRU:
                 z0 += dirZ  # move a coordenada na direção z
 
     def adicionarFaces(self):
-        listFaces = self.estrutura.listOfFaces()
-        for face in listFaces:
-            x = (face.v0.x + face.v1.x + face.v2.x) // 3
-            y = (face.v0.y + face.v1.y + face.v2.y) // 3
-            z = (face.v0.z + face.v1.z + face.v2.z) // 3
-            #// é divisão inteira
+        if len(self.estrutura.listOfFaces()) != 0:
+            listFaces = self.estrutura.listOfFaces()
+            for face in listFaces:
+                x = (face.v0.x + face.v1.x + face.v2.x) // 3
+                y = (face.v0.y + face.v1.y + face.v2.y) // 3
+                z = (face.v0.z + face.v1.z + face.v2.z) // 3
+                #// é divisão inteira
 
-            self.matriz[x][y][z] = face.id
+                self.matriz[x][y][z] = face.id
+class item_matriz:
+        def __init__(self, color, char):
+            self.color = color
+            self.char = char
 
-
-
+        def __str__(self):
+            return self.color + self.char + Style.RESET_ALL

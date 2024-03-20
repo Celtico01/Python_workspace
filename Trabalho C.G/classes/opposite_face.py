@@ -1,3 +1,5 @@
+import numpy as np
+
 class Estrutura:
     def __init__(self):
         self.primeiroVertex = None
@@ -86,3 +88,36 @@ class Estrutura:
             listFace.append(aux)
             aux = aux.proximo
         return listFace
+
+    def translacao(self, matriz_t):
+        f = np.zeros((1,3), dtype=np.float64)
+        aux = self.primeiroVertex
+        while aux != None:
+            f[0][0] = aux.x - (aux.x // 2)
+            f[0][1] = aux.y 
+            f[0][2] = aux.z - (aux.z // 2)
+            
+            fn = f + matriz_t
+
+            aux.x = abs(round(fn[0][0]))
+            aux.y = abs(round(fn[0][1]))
+            aux.z = abs(round(fn[0][2]))
+
+            aux = aux.proximo
+        
+    def rotacao(self, matriz_r):
+        aux = self.primeiroVertex
+        while aux != None:
+            x = aux.x - (aux.x // 2)
+            y = aux.y
+            z = aux.z - (aux.z // 2)
+
+            ponto = np.array([x, y, z])
+
+            resultado = np.dot(ponto, matriz_r)
+
+            aux.x = abs(int(round(resultado[0])))
+            aux.y = int(resultado[1])
+            aux.z = abs(int(round(resultado[2])))
+
+            aux = aux.proximo
