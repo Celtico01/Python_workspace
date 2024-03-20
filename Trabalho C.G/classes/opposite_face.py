@@ -53,22 +53,6 @@ class Estrutura:
                     elif (f2.v0 == v2 or f2.v1 == v2 or f2.v2 == v2) and (f2.v0 == v0 or f2.v1 == v0 or f2.v2 == v0):
                         f1.vizinho3 = f2.id
 
-    def exibirVertex(self):
-        if self.sizeVertex == 0:
-            return
-        aux = self.primeiroVertex
-        while aux != None:
-            print("id:" + str(aux.id) + " x:" + str(aux.x) + " y:" + str(aux.y) + " z:" + str(aux.z) + " Face:" + str(aux.face))
-            aux = aux.proximo
-
-    def exibirFace(self):
-        if self.sizeVertex == 0:
-            return
-        aux = self.primeiroFace
-        while aux != None:
-            print("id:" + str(aux.id) + " v0:" + str(aux.v0.id) + " v1:" + str(aux.v1.id) + " v2:" + str(aux.v2.id) + " Vizinhos:(" + str(aux.vizinho1) + ", " + str(aux.vizinho2) + ", " + str(aux.vizinho3) + ")")
-            aux = aux.proximo
-
     def listOfVertex(self):
         if self.sizeVertex == 0:
             return []
@@ -89,35 +73,59 @@ class Estrutura:
             aux = aux.proximo
         return listFace
 
-    def translacao(self, matriz_t):
-        f = np.zeros((1,3), dtype=np.float64)
+    def translacao(self, matriz_t, x, y):
         aux = self.primeiroVertex
+
         while aux != None:
-            f[0][0] = aux.x - (aux.x // 2)
-            f[0][1] = aux.y 
-            f[0][2] = aux.z - (aux.z // 2)
+            try:
+                xn = aux.x - x // 2
+                yn = aux.y - y // 2
+
+                m = np.array([xn, yn])
+
+                fn = m + matriz_t
+
+                aux.x = int(fn[0] + x // 2)
+                aux.y = int(fn[1] + y // 2)
+
+                if aux.x > x - 1 or aux.x < 0 or aux.y > y - 1 or aux.y < 0:
+                    print(1)
+                    raise Exception('Terminate')
+
+                print(fn[0] + x // 2)
+                print(fn[1] + y // 2)
+
+                aux = aux.proximo
+            except:
+                print('Index out of bounds!')
+                input('O programa será encerrado após você apertar ENTER.')
+                return -1
             
-            fn = f + matriz_t
-
-            aux.x = abs(round(fn[0][0]))
-            aux.y = abs(round(fn[0][1]))
-            aux.z = abs(round(fn[0][2]))
-
-            aux = aux.proximo
         
-    def rotacao(self, matriz_r):
+    def rotacao(self, matriz_r, x, y):
         aux = self.primeiroVertex
+
         while aux != None:
-            x = aux.x - (aux.x // 2)
-            y = aux.y
-            z = aux.z - (aux.z // 2)
+            try:
+                xn = aux.x - x // 2
+                yn = aux.y - y // 2
 
-            ponto = np.array([x, y, z])
+                m = np.array([xn, yn])
 
-            resultado = np.dot(ponto, matriz_r)
+                fn = np.dot(m, matriz_r)
 
-            aux.x = abs(int(round(resultado[0])))
-            aux.y = int(resultado[1])
-            aux.z = abs(int(round(resultado[2])))
+                aux.x = int(fn[0] + x // 2)
+                aux.y = int(fn[1] + y // 2)
 
-            aux = aux.proximo
+                if aux.x > x - 1 or aux.x < 0 or aux.y > y - 1 or aux.y < 0:
+                    print(1)
+                    raise Exception('Terminate')
+
+                print(fn[0] + x // 2)
+                print(fn[1] + y // 2)
+
+                aux = aux.proximo
+            except:
+                print('Index out of bounds!')
+                input('O programa será encerrado após você apertar ENTER.')
+                return -1
