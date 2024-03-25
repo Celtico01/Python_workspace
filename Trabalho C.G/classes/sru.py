@@ -13,8 +13,8 @@ class SRU:
         m = np.empty((self.x, self.y), dtype=object)
         m[:] = item_matriz(Fore.WHITE, '-')
         for i in range(self.x):
-            m[i, self.y // 2] = item_matriz(Fore.RED, '—')
-            m[self.x // 2, i] = item_matriz(Fore.RED, '|')
+            m[i, self.y // 2] = item_matriz(Fore.RED, '|')
+            m[self.x // 2, i] = item_matriz(Fore.RED, '—')
         m[self.x // 2, self.y // 2] = item_matriz(Fore.RED, '+')
         return m  # retorna a matriz criada
     

@@ -89,7 +89,6 @@ class Estrutura:
                 aux.y = int(fn[1] + y // 2)
 
                 if aux.x > x - 1 or aux.x < 0 or aux.y > y - 1 or aux.y < 0:
-                    print(1)
                     raise Exception('Terminate')
 
                 print(fn[0] + x // 2)
@@ -113,17 +112,11 @@ class Estrutura:
                 m = np.array([xn, yn])
 
                 fn = np.dot(m, matriz_r)
-
                 aux.x = int(fn[0] + x // 2)
                 aux.y = int(fn[1] + y // 2)
 
                 if aux.x > x - 1 or aux.x < 0 or aux.y > y - 1 or aux.y < 0:
-                    print(1)
                     raise Exception('Terminate')
-
-                print(fn[0] + x // 2)
-                print(fn[1] + y // 2)
-
                 aux = aux.proximo
             except:
                 print('Index out of bounds!')

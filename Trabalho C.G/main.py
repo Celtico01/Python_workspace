@@ -30,7 +30,7 @@ def inserir_pontos(x,y, qtde_elem, of):
                 y = int(input('Y:'))
                 if (x > 12 or x < -12) or (y > 12 or y < -12):
                     raise Exception()
-                vertex = Vertex(id, meio_linha + x, meio_coluna - y) # parte principal
+                vertex = Vertex(id, meio_coluna - y, meio_linha + x) # parte principal
                 of.addVertex(vertex)
                 id += 1
                 os.system('cls')
@@ -82,7 +82,7 @@ def inserir_faces(qtde_elem, of):
 def exibir_sru(x, y, of, sru):
     for i in range(x):
         for j in range(y):  
-            print(sru.matriz[j, i], end=' ') # precisa inverter i e j pois o numpy trata linhas e colunas diferente
+            print(sru.matriz[i, j], end=' ') # precisa inverter i e j pois o numpy trata linhas e colunas diferente
         print()
     
     # Dados da estrutura
@@ -97,7 +97,7 @@ def exibir_sru(x, y, of, sru):
 
     print('Coordenadas no plano cartesiano:')
     for v in of.listOfVertex():
-        print("id:" + str(v.id) + " x:" + str(v.x - x // 2) + " y:" + str(-(v.y - y // 2)) + " Face:" + str(v.face))
+        print("id:" + str(v.id) + " x:" + str(v.y - y // 2) + " y:" + str(-(v.x - x // 2)) + " Face:" + str(v.face))
 
     input('Pressione ENTER para voltar para o menu!')
     os.system('cls')
@@ -130,12 +130,12 @@ def main():
                     meio_coluna = y // 2
 
                     v0 = Vertex(0, meio_linha, meio_coluna)
-                    v1 = Vertex(1, meio_linha + (-8), meio_coluna - 0)
-                    v2 = Vertex(2, meio_linha + (-4), meio_coluna - 7)
-                    v3 = Vertex(3, meio_linha + 4, meio_coluna - 7)
-                    v4 = Vertex(4, meio_linha + 8, meio_coluna - 0)
-                    v5 = Vertex(5, meio_linha + 4, meio_coluna - (-7))
-                    v6 = Vertex(6, meio_linha + (-4), meio_coluna - (-7))
+                    v1 = Vertex(1, meio_coluna - 0, meio_linha + (-8))
+                    v2 = Vertex(2, meio_coluna - 7, meio_linha + (-4))
+                    v3 = Vertex(3, meio_coluna - 7, meio_linha + 4)
+                    v4 = Vertex(4, meio_coluna - 0, meio_linha + 8)
+                    v5 = Vertex(5, meio_coluna - (-7), meio_linha + 4)
+                    v6 = Vertex(6, meio_coluna - (-7), meio_linha + (-4))
 
                     of.addVertex(v0)
                     of.addVertex(v1)
@@ -179,8 +179,12 @@ def main():
                             os.system('cls')
                 case 5:
                     while True:
-                        angulo = float(input('Insira o angulo: '))
-                            
+                        try:
+                            angulo = float(input('Insira o angulo: '))
+                        except:
+                            print('Tente novamente!')
+                            os.system('cls')
+
                         if angulo > 360:
                             angulo_rotacao = math.radians(angulo % 360)
                         else:
@@ -191,10 +195,7 @@ def main():
                             [np.sin(angulo_rotacao), np.cos(angulo_rotacao)]])
 
                         encerrar = of.rotacao(matriz_rotacao, x, y)
-                        
                         break 
-                case 6:
-                    pass
                 case 0:
                     break
         except:
