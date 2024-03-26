@@ -147,7 +147,6 @@ def main():
                 case 2:
                     #desabilitado para apresentação
                     #inserir_faces(len(of.listOfFaces()) if len(of.listOfFaces()) != 0 else 0, of)
-                    #of.defineVizinhos()
 
                     #remover '#' acima e apagar codigo abaixo
                     of.addFace(Face(0, v0, v1, v2))
@@ -156,8 +155,8 @@ def main():
                     of.addFace(Face(3, v0, v4, v5))
                     of.addFace(Face(4, v0, v5, v6))
                     of.addFace(Face(6, v0, v6, v1))
-                    of.defineVizinhos()
                 case 3:
+                    of.defineVizinhos()
                     espaco_sru = SRU(x, y, of)
                     espaco_sru.adicionarVertexs()
                     espaco_sru.adicionarFaces()
@@ -169,7 +168,7 @@ def main():
                             sx = float(input('Insira o deslocamento em relação a \'x\': '))
                             sy = float(input('Insira o deslocamento em relação a \'y\': '))
                             
-                            m_translandar = np.array([sx, -sy])
+                            m_translandar = np.array([-sy, sx])
 
                             encerrar = of.translacao(m_translandar, x, y)
                         
