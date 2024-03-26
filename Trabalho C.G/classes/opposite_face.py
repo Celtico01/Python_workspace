@@ -82,7 +82,6 @@ class Estrutura:
                 yn = aux.y - y // 2
 
                 m = np.array([xn, yn])
-
                 fn = m + matriz_t
 
                 aux.x = int(fn[0] + x // 2)
@@ -90,9 +89,6 @@ class Estrutura:
 
                 if aux.x > x - 1 or aux.x < 0 or aux.y > y - 1 or aux.y < 0:
                     raise Exception('Terminate')
-
-                print(fn[0] + x // 2)
-                print(fn[1] + y // 2)
 
                 aux = aux.proximo
             except:
